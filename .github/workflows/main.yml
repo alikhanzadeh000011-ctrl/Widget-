@@ -12,6 +12,9 @@ jobs:
       - name: Fix MainActivity
         run: |
           sed -i 's/val text = TextView/val message = TextView/; s/addView(text)/addView(message)/' MediaWidget/app/src/main/java/com/example/mediawidget/MainActivity.kt
+      - name: Fix widget layout
+        run: |
+          sed -i 's/<View$/<ImageView/; s/android:background="@drawable\/widget_scrim"/android:src="@drawable\/widget_scrim" android:scaleType="fitXY"/' MediaWidget/app/src/main/res/layout/widget_media.xml
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
