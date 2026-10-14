@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: unzip -oq ./*.zip
+      - name: Fix MainActivity
+        run: |
+          sed -i 's/val text = TextView/val message = TextView/; s/addView(text)/addView(message)/' MediaWidget/app/src/main/java/com/example/mediawidget/MainActivity.kt
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
