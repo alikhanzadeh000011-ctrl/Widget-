@@ -8,13 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -oq ./*.zip
-      - name: Fix MainActivity
+      - name: Unzip newest project zip
         run: |
-          sed -i 's/val text = TextView/val message = TextView/; s/addView(text)/addView(message)/' MediaWidget/app/src/main/java/com/example/mediawidget/MainActivity.kt
-      - name: Fix widget layout
-        run: |
-          sed -i 's/<View$/<ImageView/; s/android:background="@drawable\/widget_scrim"/android:src="@drawable\/widget_scrim" android:scaleType="fitXY"/' MediaWidget/app/src/main/res/layout/widget_media.xml
+          latest=$(ls *.zip | sort -V | tail -n 1)
+          echo "Using $latest"
+          unzip -oq "$latest"
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
